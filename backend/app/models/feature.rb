@@ -1,5 +1,7 @@
 # Class Model
 class Feature < ApplicationRecord
+  has_many :comments, dependent: :destroy
+
   validates :title, :place, :mag_type, :latitude, :longitude, :external_url, presence: true
 
   validates :magnitude, comparison: { greater_than_or_equal_to: -1.0, less_than_or_equal_to: 10.0 }
