@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :comments
-  resources :features
+  scope '/api' do
+    jsonapi_resources :features
+    jsonapi_resources :comments
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
