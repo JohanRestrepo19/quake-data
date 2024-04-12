@@ -8,7 +8,10 @@ module Api
       comment = feature.comments.new(body: comment_params)
 
       if comment.save
-        render json: comment
+        render json: JSONAPI::ResourceSerializer
+          .new(CommentResource)
+          .object_hash(CommentResource.new(comment, {}), {})
+
       else
         render json: comment.errors, status: :unprocessable_entity
       end
