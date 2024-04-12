@@ -1,5 +1,6 @@
 module Api
   class FeaturesController < JSONAPI::ResourceController
+    include ErrorSerializer
     def create_comment
       # @type [Feature]
       feature = Feature.find(params[:feature_id])
@@ -13,7 +14,7 @@ module Api
           .object_hash(CommentResource.new(comment, {}), {})
 
       else
-        render json: comment.errors, status: :unprocessable_entity
+        render json: serialize(comment.errors), status: :unprocessable_entity
       end
     end
 
