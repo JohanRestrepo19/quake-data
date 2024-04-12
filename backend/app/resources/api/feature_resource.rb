@@ -3,6 +3,8 @@ module Api
   class FeatureResource < JSONAPI::Resource
     immutable
 
+    has_many :comments
+
     attributes :external_id, :magnitude, :place, :time, :tsunami, :mag_type, :title
     attribute :coordinates
 

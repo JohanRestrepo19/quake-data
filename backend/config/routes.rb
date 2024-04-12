@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
-    jsonapi_resources :features
+    jsonapi_resources :features do
+      post '/comments', to: 'features#create_comment'
+    end
+
     jsonapi_resources :comments
   end
 
