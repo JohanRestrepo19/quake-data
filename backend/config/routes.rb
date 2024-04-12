@@ -3,8 +3,6 @@ Rails.application.routes.draw do
     jsonapi_resources :features do
       post '/comments', to: 'features#create_comment'
     end
-
-    jsonapi_resources :comments
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
