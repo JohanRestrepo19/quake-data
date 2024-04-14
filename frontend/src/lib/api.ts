@@ -1,8 +1,11 @@
 import axios from "axios";
 import type {
+  Comment,
+  CommentRecord,
   Feature,
   FeatureRecord,
-  FeatureResponse,
+  FeatureWithCommentsResponse,
+  FeaturesResponse,
   ResponseMetadata,
 } from "./types";
 
@@ -13,28 +16,59 @@ const api = axios.create({
 export async function fetchFeatures(
   pageNumber: number = 1,
   pageSize: number = 10,
-): Promise<{ features: Feature[]; metada: ResponseMetadata }> {
-  const response = await api.get<FeatureResponse>(
+): Promise<{ features: Feature[]; metadata: ResponseMetadata }> {
+  const response = await api.get<FeaturesResponse>(
     `/features?page[number]=${pageNumber}&page[size]=${pageSize}`,
   );
 
-  console.log("Información de la data: ", response);
-
   return {
-    features: parseFeatureRecords(response.data.data),
-    metada: response.data.meta,
+    features: mapFeatureRecords(response.data.data),
+    metadata: response.data.meta,
   };
 }
 
-// Para la obtención de datos tengo que validar que:
-// 1. El código de la petición sea postivio -> status code 200 - 299
-// 2. Si el codigo no es positivo entonces tengo que mostrar un mensaje de error.
-export function parseFeatureRecords(records: FeatureRecord[]): Feature[] {
-  return records.map<Feature>((record) => {
-    return {
-      id: record.id,
-      external_url: record.links.external_url,
-      ...record.attributes,
-    };
+export async function fetchFeatureByIdWithComments(
+  featureId: string,
+): Promise<{ feature: Feature; featureComments: Comment[] }> {
+  const response = await api.get<FeatureWithCommentsResponse>(
+    `/features/${featureId}?include=comments`,
+  );
+
+  console.log("Si que traigo la info: ", response);
+
+  return {
+    feature: mapFeatureRecord(response.data.data),
+    featureComments: mapCommentsRecords(response.data.included || []),
+  };
+}
+
+export async function postCommnet(featureId: string, comment: string) {
+  return await api.post<CommentRecord>(`/features/${featureId}/comments`, {
+    body: comment,
   });
+}
+
+// Map functions
+
+function mapCommentRecord(record: CommentRecord): Comment {
+  return {
+    id: record.id,
+    body: record.attributes.body,
+  };
+}
+
+function mapCommentsRecords(records: CommentRecord[]) {
+  return records.map<Comment>((record) => mapCommentRecord(record));
+}
+
+function mapFeatureRecord(record: FeatureRecord): Feature {
+  return {
+    id: record.id,
+    external_url: record.links.external_url,
+    ...record.attributes,
+  };
+}
+
+function mapFeatureRecords(records: FeatureRecord[]): Feature[] {
+  return records.map<Feature>((record) => mapFeatureRecord(record));
 }

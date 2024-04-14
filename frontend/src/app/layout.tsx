@@ -3,6 +3,7 @@ import { open_sans } from "@/components/fonts";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import ReactQueryProvider from "./react-query-provider";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +25,9 @@ export default function RootLayout({
       >
         <nav className="sticky top-0 z-10 w-full bg-slate-200/50 backdrop-blur-sm py-2">
           <h1 className="text-slate-800 font-semibold text-2xl text-center">
-            Quake Data Visulization
+            <Link href='/'>
+              Quake Data Visulization
+            </Link>
           </h1>
         </nav>
         <div className="w-full p-2 sm:container">

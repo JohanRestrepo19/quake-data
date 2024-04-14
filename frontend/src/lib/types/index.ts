@@ -20,13 +20,13 @@ export type FeatureRecord = {
 };
 
 export type ResponseMetadata = {
-    record_count: number
-    page_count: number
-}
+  record_count: number;
+  page_count: number;
+};
 
-export type FeatureResponse = {
+export type FeaturesResponse = {
   data: FeatureRecord[];
-  meta: ResponseMetadata,
+  meta: ResponseMetadata;
   links: {
     first: string;
     prev?: string;
@@ -50,5 +50,23 @@ export type Feature = {
     latitude: string;
   };
 };
+
+export type CommentRecord = {
+  id: string;
+  type: string;
+  attributes: {
+    body: string;
+  };
+};
+
+export type Comment = {
+  id: string;
+  body: string;
+};
+
+export type FeatureWithCommentsResponse = {
+  data: FeatureRecord
+  included: CommentRecord[]
+}
 
 export type Features = Feature[];

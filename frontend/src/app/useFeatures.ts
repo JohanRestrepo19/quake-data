@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { fetchFeatures } from "@/lib/api";
 import {
@@ -14,22 +14,16 @@ export const useFeatures = (initialPage = 1, initialPageSize = 10) => {
     pageSize: initialPageSize,
   });
 
-  useEffect(() => {
-    console.log("El número de la página ha cambiado: ", pagination.pageIndex);
-  }, [pagination.pageIndex]);
-
   const featuresQuery = useQuery({
     queryKey: ["features", pagination],
     queryFn: () => fetchFeatures(pagination.pageIndex, pagination.pageSize),
     placeholderData: keepPreviousData,
   });
 
-  console.log("metadata de la query: ", featuresQuery.data?.metada);
-
   const table = useReactTable({
     data: featuresQuery.data?.features || [],
     columns: columns,
-    rowCount: featuresQuery.data?.metada.record_count,
+    rowCount: featuresQuery.data?.metadata.record_count,
     state: { pagination },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
@@ -59,7 +53,7 @@ export const useFeatures = (initialPage = 1, initialPageSize = 10) => {
   const tableLastPage = () => {
     setPagination({
       ...pagination,
-      pageIndex: featuresQuery.data?.metada.page_count || 1,
+      pageIndex: featuresQuery.data?.metadata.page_count || 1,
     });
   };
 
