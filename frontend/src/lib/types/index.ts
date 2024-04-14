@@ -21,6 +21,10 @@ export type FeatureRecord = {
 
 export type FeatureResponse = {
   data: FeatureRecord[];
+  meta: {
+    record_count: number
+    page_count: number
+  },
   links: {
     first: string;
     prev?: string;
