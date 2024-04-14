@@ -21,7 +21,12 @@ export default function RootLayout({
           open_sans.variable,
         )}
       >
-        {children}
+        <nav className="sticky top-0 z-10 w-full bg-slate-200/50 backdrop-blur-sm py-2">
+          <h1 className="text-slate-800 font-semibold text-2xl text-center">
+            Quake Data Visulization
+          </h1>
+        </nav>
+        <div className="w-full p-2 sm:container">{children}</div>
       </body>
     </html>
   );
