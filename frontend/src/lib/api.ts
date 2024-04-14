@@ -1,19 +1,29 @@
 import axios from "axios";
-import { Feature, FeatureRecord, FeatureResponse } from "./types";
+import type {
+  Feature,
+  FeatureRecord,
+  FeatureResponse,
+  ResponseMetadata,
+} from "./types";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:3000/api",
 });
 
-export async function getFeatures(
+export async function fetchFeatures(
   pageNumber: number = 1,
   pageSize: number = 10,
-): Promise<Feature[]> {
+): Promise<{ features: Feature[]; metada: ResponseMetadata }> {
   const response = await api.get<FeatureResponse>(
     `/features?page[number]=${pageNumber}&page[size]=${pageSize}`,
   );
+
   console.log("Información de la data: ", response);
-  return parseFeatureRecords(response.data.data);
+
+  return {
+    features: parseFeatureRecords(response.data.data),
+    metada: response.data.meta,
+  };
 }
 
 // Para la obtención de datos tengo que validar que:

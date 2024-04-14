@@ -19,12 +19,14 @@ export type FeatureRecord = {
   };
 };
 
-export type FeatureResponse = {
-  data: FeatureRecord[];
-  meta: {
+export type ResponseMetadata = {
     record_count: number
     page_count: number
-  },
+}
+
+export type FeatureResponse = {
+  data: FeatureRecord[];
+  meta: ResponseMetadata,
   links: {
     first: string;
     prev?: string;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { open_sans } from "@/components/fonts";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+import ReactQueryProvider from "./react-query-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +27,9 @@ export default function RootLayout({
             Quake Data Visulization
           </h1>
         </nav>
-        <div className="w-full p-2 sm:container">{children}</div>
+        <div className="w-full p-2 sm:container">
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </div>
       </body>
     </html>
   );

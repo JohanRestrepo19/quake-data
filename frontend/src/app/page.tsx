@@ -1,17 +1,9 @@
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
-import { getFeatures } from "@/lib/api";
+import { FeaturesTable } from "./data-table";
 
-export async function getData() {
-  return await getFeatures();
-}
-
-export default async function Home() {
-  const data = await getData();
-  console.log("Información desde la api: ", data);
+export default function Home() {
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+      <FeaturesTable />
     </div>
   );
 }

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender } from "@tanstack/react-table";
 
 import {
   Table,
@@ -17,22 +11,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useFeatures } from "./useFeatures";
+import { columns } from "./columns";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-}
-
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-  });
+export function FeaturesTable() {
+  const {
+    table,
+    canTablePrevPage,
+    canTableNextPage,
+    tablePrevPage,
+    tableNextPage,
+    tableFirstPage,
+    tableLastPage,
+    pagination,
+  } = useFeatures();
 
   return (
     <div className="rounded-md border">
@@ -79,11 +71,16 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
       <div className="flex items-center justify-end space-x-2 py-4">
+        <p>Pagina numero: {pagination.pageIndex || 0}</p>
+        <Button variant="outline" size="sm" onClick={() => tableFirstPage()}>
+          First
+        </Button>
+
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
+          onClick={() => tablePrevPage()}
+          disabled={!canTablePrevPage()}
         >
           Previous
         </Button>
@@ -91,10 +88,14 @@ export function DataTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
+          onClick={() => tableNextPage()}
+          disabled={!canTableNextPage()}
         >
           Next
+        </Button>
+
+        <Button variant="outline" size="sm" onClick={() => tableLastPage()}>
+          Last
         </Button>
       </div>
     </div>
