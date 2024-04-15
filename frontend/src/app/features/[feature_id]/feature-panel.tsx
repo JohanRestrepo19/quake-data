@@ -32,6 +32,7 @@ export default function FeaturePanel({ feature_id }: Props) {
     mutationFn: () => postCommnet(feature_id, comment),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["feature", feature_id] });
+      setComment('');
     },
   });
 

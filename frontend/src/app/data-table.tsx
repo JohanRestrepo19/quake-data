@@ -17,7 +17,6 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 
 export function FeaturesTable() {
