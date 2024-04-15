@@ -24,7 +24,7 @@ A brief overview of Project folder structure.
 .
 │   # Here is where we hold the Ruby on Rails project
 ├── backend/
-│   │   # This folder contains all the files ralated to the MVC pattern and where we write business logic
+│   │   # This folder contains all the files related to the MVC pattern and where we write business logic
 │   ├── app/
 │   ├── lib/
 │   │   │   # In this folder we can write Rake files to specify some tasks and then run them from console using rails
@@ -62,7 +62,7 @@ With the above commands we install the ruby project dependencies, create the dat
 rails features:sync
 ```
 
-Then we need to run de features sync task to get the data from the external source and persist it into the database.
+Then we need to run the features synchronization task to get the data from the external source and persist it into the database.
 
 Once we have the database ready to use we just need to start our server. And **we need start the api server berfore starting the client/frontend** project to avoid rails complaining about the port is already being used. So to get the server running:
 
