@@ -13,6 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { useFeatures } from "./useFeatures";
 import { columns } from "./columns";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 export function FeaturesTable() {
   const {
@@ -70,34 +76,42 @@ export function FeaturesTable() {
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <p>Pagina numero: {pagination.pageIndex || 0}</p>
-        <Button variant="outline" size="sm" onClick={() => tableFirstPage()}>
-          First
-        </Button>
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => tablePrevPage()}
-          disabled={!canTablePrevPage()}
-        >
-          Previous
-        </Button>
-
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => tableNextPage()}
-          disabled={!canTableNextPage()}
-        >
-          Next
-        </Button>
-
-        <Button variant="outline" size="sm" onClick={() => tableLastPage()}>
-          Last
-        </Button>
-      </div>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <Button variant="outline" onClick={() => tableFirstPage()}>
+              First
+            </Button>
+          </PaginationItem>
+          <PaginationItem>
+            <Button
+              variant="outline"
+              onClick={() => tablePrevPage()}
+              disabled={!canTablePrevPage()}
+            >
+              Previous
+            </Button>
+          </PaginationItem>
+          <PaginationItem>
+            <Button variant="outline">{pagination.pageIndex}</Button>
+          </PaginationItem>
+          <PaginationItem>
+            <Button
+              variant="outline"
+              onClick={() => tableNextPage()}
+              disabled={!canTableNextPage()}
+            >
+              Next
+            </Button>
+          </PaginationItem>
+          <PaginationItem>
+            <Button variant="outline" onClick={() => tableLastPage()}>
+              Last
+            </Button>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 }
