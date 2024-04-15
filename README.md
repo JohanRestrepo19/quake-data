@@ -24,7 +24,7 @@ A brief overview of Project folder structure.
 .
 │   # Here is where we hold the Ruby on Rails project
 ├── backend/
-│   │   # This folder constains all the files ralated to the MVC pattern and where we write business logic
+│   │   # This folder contains all the files ralated to the MVC pattern and where we write business logic
 │   ├── app/
 │   ├── lib/
 │   │   │   # In this folder we can write Rake files to specify some tasks and then run them from console using rails
