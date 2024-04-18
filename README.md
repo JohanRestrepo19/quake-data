@@ -1,6 +1,6 @@
 # Quake Data System
 
-This project consist in fetching data from an external source [USGS](https://www.usgs.gov/programs/earthquake-hazards) which exposes a public API to get recent earthquake information. So through a Rake task we synchronize our database with the earthquake activity of the last 30 days and then expose two endpoints to be used in the client/frontend. The backend was built using a ruby gem called JSONAPI::Resources in order to be compliant with the JSON API standard.
+This project consists in fetching data from an external source [USGS](https://www.usgs.gov/programs/earthquake-hazards) which exposes a public API to get recent earthquake information. So through a Rake task we synchronize our database with the earthquake activity of the last 30 days and then expose two endpoints to be used in the client/frontend. The backend was built using a ruby gem called JSONAPI::Resources in order to be compliant with the JSON API standard.
 
 ## Stack
 
